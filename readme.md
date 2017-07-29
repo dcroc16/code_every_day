@@ -12,7 +12,7 @@ day 1: just getting started
 		   spreadsheets</li>
 		<li> want to use D3 to display charts and graph</li>
 		<li> want to do something with machine learning</li>
-
+</ol>
 <br>
 <h3>day 3: trying to implement login system
 </h3>	Steps to complete:
@@ -22,3 +22,6 @@ day 1: just getting started
 			<li>Get Hashed Passwords working</li>
 			<li>Get Flask-Session Working</li>
 		</ol>		
+
+<h3>day 4: working on getting bootstrap added to the app</h3>
+
