@@ -44,7 +44,15 @@ def login():
     message = ""
     
     if request.method == "POST":
-        message = "Logged In"
+        message = "Logged In " + request.form["username"]
+        current_user = User.query.filter_by(username=request.form["username"]).first()
+        if current_user:
+	    message += " : " + current_user.email
+            if current_user.check_password(request.form["password"]):
+                message += " : " + " valid password "
+            else:
+                message += " : "  + "invalid password"
+        
     return render_template("login.html", message=message)
 
 
