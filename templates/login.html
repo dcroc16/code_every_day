@@ -1,3 +1,7 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+
 <h3>{{ message }}</h3>
 <h3>Login to Applicaiton:</h3>
 <form action="/login" method="post" >
@@ -5,3 +9,6 @@
 <input id="password" name="password" type="text" />
 <input id="submit" type="submit" />
 </form>
+
+{% endblock %}
+
