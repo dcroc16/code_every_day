@@ -24,4 +24,4 @@ day 1: just getting started
 		</ol>		
 
 <h3>day 4: working on getting bootstrap added to the app</h3>
-
+<h3>day 5: working on getting session working in flask</h3>
