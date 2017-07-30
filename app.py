@@ -4,6 +4,9 @@ from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_bootstrap import Bootstrap
 from flask_login import LoginManager
+from flask_wtf import Form
+from wtforms import StringField, SubmitField
+from wtforms.validators import Required
 
 
 app = Flask(__name__)
@@ -66,7 +69,7 @@ def login():
         message = "Logged In " + request.form["username"]
         current_user = User.query.filter_by(username=request.form["username"]).first()
         if current_user:
-	    message += " : " + current_user.email
+            message += " : " + current_user.email
             if current_user.check_password(request.form["password"]):
                 message += " : " + " valid password "
             else:
