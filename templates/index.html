@@ -1,10 +1,12 @@
 {% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
 
 {% block content %}
 
 <div class="jumbotron" />
-<h1>Code Every Day</h1>
+{{wtf.quick_form(form)}}
 </div>
+
 
 
 {% endblock %}

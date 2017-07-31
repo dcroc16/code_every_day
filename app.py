@@ -5,7 +5,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_bootstrap import Bootstrap
 from flask_login import LoginManager
 from flask_wtf import Form
-from wtforms import StringField, SubmitField
+from wtforms import StringField, SubmitField, PasswordField
 from wtforms.validators import Required
 
 
@@ -45,6 +45,13 @@ class User(db.Model):
         return '<User %r>' % self.username
 
 
+class UserForm(Form):
+    username = StringField("Username", validators=[Required()])
+    password = PasswordField("Password", validators=[Required()])
+    submit = SubmitField('Submit')
+
+
+
 
 @app.errorhandler(404)
 def page_not_found(e):
@@ -58,7 +65,8 @@ def internal_server_error(e):
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    form = UserForm()
+    return render_template("index.html", form=form)
 
 
 @app.route("/login", methods=["POST", "GET"])
