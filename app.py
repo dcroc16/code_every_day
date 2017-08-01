@@ -46,8 +46,8 @@ class User(db.Model):
 
 
 class UserForm(Form):
-    username = StringField("Username", validators=[Required()])
-    password = PasswordField("Password", validators=[Required()])
+    username = StringField("username", validators=[Required()])
+    password = PasswordField("password", validators=[Required()])
     submit = SubmitField('Submit')
 
 
@@ -65,12 +65,12 @@ def internal_server_error(e):
 
 @app.route("/")
 def index():
-    form = UserForm()
-    return render_template("index.html", form=form)
+    return render_template("index.html")
 
 
 @app.route("/login", methods=["POST", "GET"])
 def login():
+    form = UserForm()
     message = ""
     
     if request.method == "POST":
@@ -83,7 +83,7 @@ def login():
             else:
                 message += " : "  + "invalid password"
         
-    return render_template("login.html", message=message)
+    return render_template("login.html", message=message, form=form)
 
 
 if __name__ == "__main__":
