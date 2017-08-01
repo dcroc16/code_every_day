@@ -3,7 +3,7 @@ import config
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_bootstrap import Bootstrap
-from flask_login import LoginManager
+from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
 from flask_wtf import Form
 from wtforms import StringField, SubmitField, PasswordField
 from wtforms.validators import Required
@@ -22,7 +22,7 @@ login_manager.init_app(app)
 
 
 
-class User(db.Model):
+class User(UserMixin, db.Model):
     __tablename__ = "users"
 
     id = db.Column(db.Integer, primary_key=True)
@@ -51,6 +51,9 @@ class UserForm(Form):
     submit = SubmitField('Submit')
 
 
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
 
 
 @app.errorhandler(404)
@@ -62,28 +65,48 @@ def internal_server_error(e):
     return render_template("500.html"), 500
 
 
-
 @app.route("/")
 def index():
-    return render_template("index.html")
+    if current_user:
+        user = current_user
+    else:
+        user = User(username="")
+    return render_template("index.html", user=user)
+
+
+@app.route("/logout")
+@login_required
+def logout():
+    logout_user()
+    return "You are now logged out"
 
 
 @app.route("/login", methods=["POST", "GET"])
 def login():
     form = UserForm()
     message = ""
-    
     if request.method == "POST":
-        message = "Logged In " + request.form["username"]
-        current_user = User.query.filter_by(username=request.form["username"]).first()
-        if current_user:
-            message += " : " + current_user.email
-            if current_user.check_password(request.form["password"]):
-                message += " : " + " valid password "
+        the_user = User.query.filter_by(username=request.form["username"]).first()
+        message = ""
+        if the_user:
+            if the_user.check_password(request.form["password"]):
+                login_user(the_user)
+                return redirect(url_for("index"))
             else:
-                message += " : "  + "invalid password"
-        
-    return render_template("login.html", message=message, form=form)
+                message = "Invalid Credentials"
+        else:
+            message = "Invalid Credentials"
+
+    if current_user:
+        user = current_user
+    else:
+        user = User(username="", password="")   
+    return render_template("login.html", message=message, form=form, user=user)
+
+@app.route("/protected")
+@login_required
+def protected():
+    return "the current user is: " + current_user.username
 
 
 if __name__ == "__main__":
