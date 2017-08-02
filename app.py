@@ -103,6 +103,7 @@ def login():
         user = User(username="", password="")   
     return render_template("login.html", message=message, form=form, user=user)
 
+
 @app.route("/protected")
 @login_required
 def protected():

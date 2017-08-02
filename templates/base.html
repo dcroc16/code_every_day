@@ -1,5 +1,11 @@
 {% extends "bootstrap/base.html" %}
 
+{% block scripts %}
+    {{super()}}
+    <script type="text/javascript" src="./static/code.js"></script>
+
+{% endblock %}
+
 {% block title %}code every day{% endblock %}
 
 {% block navbar %}
