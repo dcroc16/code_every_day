@@ -65,6 +65,11 @@ def internal_server_error(e):
     return render_template("500.html"), 500
 
 
+@app.errorhandler(401)
+def unauth_error(e):
+    return redirect(url_for("login")), 200
+
+
 @app.route("/")
 def index():
     if current_user:
