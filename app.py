@@ -67,7 +67,16 @@ def internal_server_error(e):
 
 @app.errorhandler(401)
 def unauth_error(e):
-    return redirect(url_for("login")), 200
+    return redirect("/login")
+
+
+
+@app.before_request
+def before_request():
+    if current_user:
+        pass
+    else:
+        return redirect("/login")
 
 
 @app.route("/")
@@ -113,6 +122,13 @@ def login():
 @login_required
 def protected():
     return "the current user is: " + current_user.username
+
+
+@app.route("/alarm_clock")
+@login_required
+def alarm():
+    return render_template("alarm_clock.html")
+
 
 
 if __name__ == "__main__":
