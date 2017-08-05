@@ -65,18 +65,12 @@ def internal_server_error(e):
     return render_template("500.html"), 500
 
 
-@app.errorhandler(401)
-def unauth_error(e):
-    return redirect("/login")
-
 
 
 @app.before_request
 def before_request():
-    if current_user:
-        pass
-    else:
-        return redirect("/login")
+    for i in session:
+        print(i)
 
 
 @app.route("/")
@@ -114,7 +108,7 @@ def login():
     if current_user:
         user = current_user
     else:
-        user = User(username="", password="")   
+        user = User(username="", password="", email="")   
     return render_template("login.html", message=message, form=form, user=user)
 
 

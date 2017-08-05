@@ -1,9 +1,29 @@
 {% extends "base.html" %}
 
+{% block scripts %}
+{{super()}}
+<script type="text/javascript">
+$(document).ready(function(){
+    var app = {};
+
+
+    $("#clickMe").on("click", function(){
+        $("#iframe").attr("src", "https://www.youtube.com/embed/iNpXCzaWW1s?autoplay=1");
+        console.log(Date())
+    });
+    
+});    
+
+</script>
+{% endblock %}
 {% block content %}
-<div class="content">
+<div class="container">
     <div class="row">
-        {{ form.quick_form()}}
+        <div class="container">
+            <a href="#" id="clickMe">PLAY</a>
+            <iframe id="iframe" width="200" height="300" src="https://www.youtube.com/embed/iNpXCzaWW1s?autoplay=" frameborder="0"></iframe> 
+
+        </div>   
     </div>
 </div>
 {% endblock %}
