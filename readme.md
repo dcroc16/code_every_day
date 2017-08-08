@@ -29,3 +29,4 @@ day 1: just getting started
 
 
 <h3>day 10: completing alarm clock project <h3>
+<h3>day 13: going to work on a javascript game</h3>
