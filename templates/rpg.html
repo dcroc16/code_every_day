@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+  <head>
+    <style type="text/css">
+        #gameScreen {
+            border: 1px solid #030303;
+         }
+    </style>
+    <script type="text/javascript">
+      window.addEventListener("load", function(){
+        var app = function(){};
+        app.run = function(){
+              var canvas = document.createElement("canvas");
+              canvas.id = "gameScreen"
+              canvas.height = 500;
+              canvas.width = 500;
+              var ctx = canvas.getContext("2d");
+              document.body.appendChild(canvas);
+          };
+
+        app.run();
+
+      }, false);
+    </script>
+  </head>
+  <body>
+
+  </body>
+
+</html>

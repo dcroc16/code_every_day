@@ -118,6 +118,12 @@ def protected():
     return "the current user is: " + current_user.username
 
 
+@app.route("/RPG")
+@login_required
+def rpg():
+    return render_template("rpg.html")
+
+
 @app.route("/alarm_clock")
 @login_required
 def alarm():

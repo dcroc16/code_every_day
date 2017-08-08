@@ -9,7 +9,12 @@ $(document).ready(function(){
 
     $("#clickMe").on("click", function(){
         $("#iframe").attr("src", "https://www.youtube.com/embed/iNpXCzaWW1s?autoplay=1");
-        console.log(Date())
+        var d = new Date()
+        console.log(d.getHours());
+    });
+
+    $("#sel1").on("change", function(){
+        $("#time_box").html($("#sel1").value());
     });
     
 });    
@@ -22,7 +27,37 @@ $(document).ready(function(){
         <div class="container">
             <a href="#" id="clickMe">PLAY</a>
             <iframe id="iframe" width="200" height="300" src="https://www.youtube.com/embed/iNpXCzaWW1s?autoplay=" frameborder="0"></iframe> 
+            <div class="container">
+                <div class="col-sm-6">
+                <div class="row">
+                    <div class="col-sm-2">
+                        <select class="form-control" id="sel1">
+                            {% for i in range(12) %}
 
+                                <option>{{i}}</option>
+
+                            {% endfor %}
+                    
+                        </select>
+                    </div>
+                    <div class="col-sm-2">
+                        <select class="form-control" id="sel2">
+                            {% for i in range(60) %}
+
+                                <option>{{i}}</option>
+
+                            {% endfor %}
+                    
+                        </select>
+                    </div>
+                </div>
+                <div class="row" >
+                    <div class="container" id="time_box">
+
+                    </div>
+                </div>
+            </div>
+            </div>
         </div>   
     </div>
 </div>
